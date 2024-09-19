@@ -1,0 +1,61 @@
+// Pega todos os elementos com a classe jss292
+const elementos = document.querySelectorAll('.jss292');
+
+// Cria um array para armazenar os preços
+let preco = [];
+
+// Percorre cada elemento encontrado com um loop for
+for (let i = 0; i < elementos.length; i++) {
+    // Pega o texto do elemento
+    let texto = elementos[i].textContent;
+    let precoLimpo = '';
+
+    // Remove o "R$" e caracteres não numéricos, exceto a vírgula e o ponto
+    for (let j = 0; j < texto.length; j++) {
+        let char = texto[j];
+        if ((char >= '0' && char <= '9') || char === ',' || char === '.') {
+            precoLimpo += char;
+        }
+    }
+
+    // Substitui a vírgula por ponto
+    let precoFinal = '';
+    for (let j = 0; j < precoLimpo.length; j++) {
+        if (precoLimpo[j] === ',') {
+            precoFinal += '.';
+        } else {
+            precoFinal += precoLimpo[j];
+        }
+    }
+
+    // Converte o texto final em número e adiciona ao array de preços
+    precos.push(parseFloat(precoFinal));
+}
+
+// Verifica se o array de preços não está vazio
+if (precos.length > 0) {
+    // Inicializa a variável menorPreco com o primeiro preço
+    let menorPreco = precos[0];
+
+    // Percorre o array para encontrar o menor preço
+    for (let i = 1; i < precos.length; i++) {
+        if (precos[i] < menorPreco) {
+            menorPreco = precos[i];
+        }
+    }
+
+    // Mostra o preço mais barato
+    console.log(`O produto mais barato custa: R$${menorPreco}`);
+
+    // Pergunta ao usuário quanto dinheiro ele tem
+    let dinheiro = parseFloat(prompt(`O produto mais barato custa R$${menorPreco}. Quanto dinheiro você tem?`));
+
+    // Verifica se o usuário tem dinheiro suficiente
+    if (dinheiro >= menorPreco) {
+        alert('Parabéns! Você até pode comprar o produto, mas você continua sendo POBRE!');
+    } else {
+        alert('HAHAHHA Pobre! Continue sonhando.');
+    }
+} else {
+    console.log('Não foram encontrados preços.');
+}
